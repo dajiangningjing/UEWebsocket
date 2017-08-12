@@ -26,6 +26,7 @@ this plugin tested on 4.15, 4.16 and 4.17.
 # Install
 This is a normal plugin, if you are a beginner and don't know how to install it, 
 please watch the video on my [another plugin](https://github.com/feixuwu/UnrealEngine4-Admob).
+If you have any problem, please email me:feixuwu@outlook.
 
 
 # License
