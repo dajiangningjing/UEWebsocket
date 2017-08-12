@@ -30,5 +30,5 @@ If you have any problem, please email me:feixuwu@outlook.com
 
 
 # License
-This is an open source project, you can use it free. If you think this project helped you, please give me a star to let me know 
+This is an open source project, you can use it free. If you think this project useful, please give me a star to let me know 
 it is useful, so I'll continue make it better.
