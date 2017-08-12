@@ -1,0 +1,19 @@
+{
+	"FileVersion": 3,
+	"EngineAssociation": "4.15",
+	"Category": "",
+	"Description": "",
+	"Modules": [
+		{
+			"Name": "UEWebsocket",
+			"Type": "Runtime",
+			"LoadingPhase": "Default"
+		}
+	],
+	"Plugins": [
+		{
+			"Name": "WebSocket",
+			"Enabled": true
+		}
+	]
+}
