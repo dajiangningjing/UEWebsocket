@@ -65,6 +65,7 @@ public class WebSocket : ModuleRules
         if (Target.Platform == UnrealTargetPlatform.Win64)
         {
             PrivateDependencyModuleNames.Add("zlib");
+            PrivateDependencyModuleNames.Add("OpenSSL");
             PrivateIncludePaths.Add("WebSocket/ThirdParty/include/Win64");
 
             string strStaticPath = Path.GetFullPath(Path.Combine(ModulePath, "ThirdParty/lib/Win64/"));
@@ -73,8 +74,8 @@ public class WebSocket : ModuleRules
 
             string[] StaticLibrariesX64 = new string[] {
                 "websockets_static.lib",
-                "libcrypto.lib",
-                "libssl.lib",
+                //"libcrypto.lib",
+                //"libssl.lib",
             };
 
             foreach (string Lib in StaticLibrariesX64)
