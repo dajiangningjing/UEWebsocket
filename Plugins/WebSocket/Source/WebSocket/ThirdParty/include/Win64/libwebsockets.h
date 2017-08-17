@@ -203,9 +203,13 @@ typedef unsigned long long lws_intptr_t;
 #include <wolfssl/error-ssl.h>
 #endif /* not USE_OLD_CYASSL */
 #else
-#include <openssl/ssl.h>
+//#include <openssl/ssl.h>
+
+struct SSL_CTX;
+struct SSL;
+
 #if !defined(LWS_WITH_ESP32)
-#include <openssl/err.h>
+//#include <openssl/err.h>
 #endif
 #endif /* not USE_WOLFSSL */
 #endif
