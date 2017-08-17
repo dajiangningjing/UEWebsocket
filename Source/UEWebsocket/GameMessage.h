@@ -30,6 +30,10 @@ public:
 	static int CMD_GAME_MESSAGE();
 	UFUNCTION(BlueprintPure, Category = "GameMessage")
 	static int CMD_NOTIFY_CURROOM();
+	UFUNCTION(BlueprintPure, Category = "GameMessage")
+	static int CMD_QUERY_GAMECONFIG();
+	UFUNCTION(BlueprintPure, Category = "GameMessage")
+	static int CMD_PLAYER_OFFLINE();
 };
 
 UCLASS()
@@ -210,6 +214,67 @@ public:
 	int cmd;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn=true), Category = GameMessage)
 	USC_CMD_SERVERLIST_body* body;
+};
+
+UCLASS(BlueprintType, Blueprintable)
+class UCS_CMD_QUERY_GAMECONFIG_body:public UObject {
+GENERATED_BODY()
+public:
+	UCS_CMD_QUERY_GAMECONFIG_body();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn=true), Category = GameMessage)
+	FString gameid;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn=true), Category = GameMessage)
+	int mode;
+};
+
+UCLASS(BlueprintType, Blueprintable)
+class UCS_CMD_QUERY_GAMECONFIG:public UObject {
+GENERATED_BODY()
+public:
+	UCS_CMD_QUERY_GAMECONFIG();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn=true), Category = GameMessage)
+	int cmd;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn=true), Category = GameMessage)
+	UCS_CMD_QUERY_GAMECONFIG_body* body;
+};
+
+UCLASS(BlueprintType, Blueprintable)
+class UGameConfigInfo:public UObject {
+GENERATED_BODY()
+public:
+	UGameConfigInfo();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn=true), Category = GameMessage)
+	int gamecount;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn=true), Category = GameMessage)
+	int cost;
+};
+
+UCLASS(BlueprintType, Blueprintable)
+class USC_CMD_QUERY_GAMECONFIG_body:public UObject {
+GENERATED_BODY()
+public:
+	USC_CMD_QUERY_GAMECONFIG_body();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn=true), Category = GameMessage)
+	bool result;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn=true), Category = GameMessage)
+	int minplayercnt;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn=true), Category = GameMessage)
+	int maxplayercnt;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn=true), Category = GameMessage)
+	TArray<UGameConfigInfo*> configList;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn=true), Category = GameMessage)
+	FString errmsg;
+};
+
+UCLASS(BlueprintType, Blueprintable)
+class USC_CMD_QUERY_GAMECONFIG:public UObject {
+GENERATED_BODY()
+public:
+	USC_CMD_QUERY_GAMECONFIG();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn=true), Category = GameMessage)
+	int cmd;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn=true), Category = GameMessage)
+	USC_CMD_QUERY_GAMECONFIG_body* body;
 };
 
 UCLASS(BlueprintType, Blueprintable)
@@ -516,5 +581,25 @@ public:
 	int cmd;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn=true), Category = GameMessage)
 	USC_CMD_NOTIFY_CURROOM_body* body;
+};
+
+UCLASS(BlueprintType, Blueprintable)
+class USC_CMD_PLAYER_OFFLINE_body:public UObject {
+GENERATED_BODY()
+public:
+	USC_CMD_PLAYER_OFFLINE_body();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn=true), Category = GameMessage)
+	FString userid;
+};
+
+UCLASS(BlueprintType, Blueprintable)
+class USC_CMD_PLAYER_OFFLINE:public UObject {
+GENERATED_BODY()
+public:
+	USC_CMD_PLAYER_OFFLINE();
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn=true), Category = GameMessage)
+	int cmd;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ExposeOnSpawn=true), Category = GameMessage)
+	USC_CMD_PLAYER_OFFLINE_body* body;
 };
 
