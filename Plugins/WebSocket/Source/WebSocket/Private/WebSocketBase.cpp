@@ -24,6 +24,7 @@
 #include "WebSocketBase.h"
 #include "libwebsockets.h"
 
+#define MAX_ECHO_PAYLOAD 64*1024
 
 UWebSocketBase::UWebSocketBase()
 {
@@ -133,6 +134,12 @@ void UWebSocketBase::Connect(const FString& uri)
 
 void UWebSocketBase::SendText(const FString& data)
 {
+	if (data.Len() > MAX_ECHO_PAYLOAD)
+	{
+		UE_LOG(WebSocket, Error, TEXT("too large package to send > MAX_ECHO_PAYLOAD:%d > %d"), data.Len(), MAX_ECHO_PAYLOAD);
+		return;
+	}
+
 	if (mlws != nullptr)
 	{
 		mSendQueue.Add(data);
@@ -148,7 +155,10 @@ void UWebSocketBase::ProcessWriteable()
 	while (mSendQueue.Num() > 0)
 	{
 		std::string strData = TCHAR_TO_UTF8(*mSendQueue[0]);
-		lws_write(mlws, (unsigned char*)strData.c_str(), strData.size(), LWS_WRITE_TEXT);
+
+		unsigned char buf[LWS_PRE + MAX_ECHO_PAYLOAD];
+		memcpy(&buf[LWS_PRE], strData.c_str(), strData.size() );
+		lws_write(mlws, &buf[LWS_PRE], strData.size(), LWS_WRITE_TEXT);
 
 		mSendQueue.RemoveAt(0);
 	}
