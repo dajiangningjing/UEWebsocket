@@ -16,3 +16,4 @@ Build
 *.apk
 *.ipa
 **/*.ipa
+WindowsNoEditor/**
