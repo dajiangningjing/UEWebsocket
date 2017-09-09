@@ -178,11 +178,16 @@ void UWebSocketBase::Close()
 		lws_set_wsi_user(mlws, NULL);
 		mlws = nullptr;
 	}
+
+	OnClosed.Broadcast();
 }
 
 void UWebSocketBase::Cleanlws()
 {
-	lws_set_wsi_user(mlws, NULL);
+	if (mlws != nullptr)
+	{
+		lws_set_wsi_user(mlws, NULL);
+	}
 }
 
 

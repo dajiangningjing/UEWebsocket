@@ -135,6 +135,9 @@ public class WebSocket : ModuleRules
             {
                 PublicAdditionalLibraries.Add(Lib);
             }
+
+            string PluginPath = Utils.MakePathRelativeTo(ModuleDirectory, BuildConfiguration.RelativeEnginePath);
+            AdditionalPropertiesForReceipt.Add(new ReceiptProperty("AndroidPlugin", Path.Combine(PluginPath, "WebSocket_UPL.xml")));
         }
     }
 }

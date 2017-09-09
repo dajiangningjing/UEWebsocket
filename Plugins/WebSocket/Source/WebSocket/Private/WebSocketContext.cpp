@@ -77,9 +77,13 @@ int UWebSocketContext::callback_echo(struct lws *wsi, enum lws_callback_reasons 
 		break;
 
 	case LWS_CALLBACK_CLIENT_CONNECTION_ERROR:
+	{
 		if (!pWebSocketBase) return -1;
+		FString strError = UTF8_TO_TCHAR(in);
+		UE_LOG(WebSocket, Error, TEXT("libwebsocket connect error:%s"), *strError);
 		pWebSocketBase->Cleanlws();
-		pWebSocketBase->OnConnectError.Broadcast();
+		pWebSocketBase->OnConnectError.Broadcast(strError);
+	}
 		break;
 
 	case LWS_CALLBACK_CLIENT_ESTABLISHED:
