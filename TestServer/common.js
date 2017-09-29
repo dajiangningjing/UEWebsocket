@@ -5,7 +5,7 @@ var fs = require('fs');
 function CreateWebSocketServer(host, port)
 {
     var server = new WebSocket.Server({ port: port, host:host} );
-    server.on('connection', function connection(client) {
+    server.on('connection', function connection(client, req) {
     client.on('message', function incoming(message) {
          //cb.OnRequest(client, message);
          client.send(message, null, (error)=>{
@@ -24,4 +24,4 @@ function CreateWebSocketServer(host, port)
 }
 
 
-CreateWebSocketServer("127.0.0.1", 5000)
+CreateWebSocketServer("192.168.1.3", 25000)

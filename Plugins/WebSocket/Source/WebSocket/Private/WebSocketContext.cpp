@@ -91,6 +91,18 @@ int UWebSocketContext::callback_echo(struct lws *wsi, enum lws_callback_reasons 
 		pWebSocketBase->OnConnectComplete.Broadcast();
 		break;
 
+	case LWS_CALLBACK_CLIENT_APPEND_HANDSHAKE_HEADER:
+	{
+		if (!pWebSocketBase) return -1;
+
+		unsigned char **p = (unsigned char **)in, *end = (*p) + len;
+		if (!pWebSocketBase->ProcessHeader(p, end))
+		{
+			return -1;
+		}
+	}
+		break;
+
 	case LWS_CALLBACK_CLIENT_RECEIVE:
 		if (!pWebSocketBase) return -1;
 		pWebSocketBase->ProcessRead((const char*)in, (int)len);
@@ -155,7 +167,7 @@ TStatId UWebSocketContext::GetStatId() const
 	return TStatId();
 }
 
-UWebSocketBase* UWebSocketContext::Connect(const FString& uri)
+UWebSocketBase* UWebSocketContext::Connect(const FString& uri, const TMap<FString, FString>& header)
 {
 	if (mlwsContext == nullptr)
 	{
@@ -165,8 +177,13 @@ UWebSocketBase* UWebSocketContext::Connect(const FString& uri)
 	UWebSocketBase* pNewSocketBase = NewObject<UWebSocketBase>();
 	pNewSocketBase->mlwsContext = mlwsContext;
 
-	pNewSocketBase->Connect(uri);
+	pNewSocketBase->Connect(uri, header);
 
 	return pNewSocketBase;
+}
+
+UWebSocketBase* UWebSocketContext::Connect(const FString& uri)
+{
+	return Connect(uri, TMap<FString, FString>() );
 }
 

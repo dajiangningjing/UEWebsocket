@@ -44,7 +44,7 @@ void UWebSocketBase::BeginDestroy()
 	}
 }
 
-void UWebSocketBase::Connect(const FString& uri)
+void UWebSocketBase::Connect(const FString& uri, const TMap<FString, FString>& header)
 {
 	if (uri.IsEmpty())
 	{
@@ -130,6 +130,8 @@ void UWebSocketBase::Connect(const FString& uri)
 		UE_LOG(WebSocket, Error, TEXT("create client connect fail"));
 		return;
 	}
+
+	mHeaderMap = header;
 }
 
 void UWebSocketBase::SendText(const FString& data)
@@ -170,6 +172,28 @@ void UWebSocketBase::ProcessRead(const char* in, int len)
 	OnReceiveData.Broadcast(strData);
 }
 
+
+bool UWebSocketBase::ProcessHeader(unsigned char** p, unsigned char* end)
+{
+	if (mHeaderMap.Num() == 0)
+	{
+		return true;
+	}
+	
+	for (auto& it : mHeaderMap)
+	{
+		std::string strKey = TCHAR_TO_UTF8(*(it.Key) );
+		std::string strValue = TCHAR_TO_UTF8(*(it.Value));
+
+		strKey += ":";
+		if (lws_add_http_header_by_name(mlws, (const unsigned char*)strKey.c_str(), (const unsigned char*)strValue.c_str(), (int)strValue.size(), p, end))
+		{
+			return false;
+		}
+	}
+
+	return true;
+}
 
 void UWebSocketBase::Close()
 {

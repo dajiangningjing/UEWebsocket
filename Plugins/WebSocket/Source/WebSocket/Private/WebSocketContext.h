@@ -48,6 +48,7 @@ public:
 	virtual TStatId GetStatId() const override;
 
 	UWebSocketBase* Connect(const FString& uri);
+	UWebSocketBase* Connect(const FString& uri, const TMap<FString, FString>& header);
 
 	static int callback_echo(struct lws *wsi, enum lws_callback_reasons reason, void *user, void *in, size_t len);
 	

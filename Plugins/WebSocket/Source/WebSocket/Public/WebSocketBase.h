@@ -56,7 +56,7 @@ public:
 	UFUNCTION(BlueprintCallable, Category = WebSocket)
 	void Close();
 
-	void Connect(const FString& uri);
+	void Connect(const FString& uri, const TMap<FString, FString>& header);
 
 	UPROPERTY(BlueprintAssignable, Category = WebSocket)
 	FWebSocketConnectError OnConnectError;
@@ -73,8 +73,10 @@ public:
 	void Cleanlws();
 	void ProcessWriteable();
 	void ProcessRead(const char* in, int len);
+	bool ProcessHeader(unsigned char** p, unsigned char* end);
 
 	struct lws_context* mlwsContext;
 	struct lws* mlws;
 	TArray<FString> mSendQueue;
+	TMap<FString, FString> mHeaderMap;
 };

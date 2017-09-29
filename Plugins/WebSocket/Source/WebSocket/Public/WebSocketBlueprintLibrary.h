@@ -65,6 +65,19 @@ public:
 };
 
 
+USTRUCT()
+struct FWebSocketHeaderPair
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(Category = WebSocket, EditAnywhere, BlueprintReadWrite)
+	FString key;
+
+	UPROPERTY(Category = WebSocket, EditAnywhere, BlueprintReadWrite)
+	FString value;
+};
+
+
 /**
  * 
  */
@@ -76,6 +89,9 @@ public:
 
 	UFUNCTION(BlueprintCallable, Category = "WebSocket")
 	static UWebSocketBase* Connect(const FString& url);
+
+	UFUNCTION(BlueprintCallable, Category = "WebSocket")
+	static UWebSocketBase* ConnectWithHeader(const FString& url, const TArray<FWebSocketHeaderPair>& header);
 
 	UFUNCTION(BlueprintCallable, Category = "WebSocket")
 	static UObject* JsonToObject(const FString& data, UClass * StructDefinition, bool checkAll);

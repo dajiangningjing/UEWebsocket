@@ -65,7 +65,25 @@ UWebSocketBase* UWebSocketBlueprintLibrary::Connect(const FString& url)
 		s_websocketCtx->AddToRoot();
 	}
 
-	return s_websocketCtx->Connect(url);
+	return s_websocketCtx->Connect(url, TMap<FString, FString>() );
+}
+
+UWebSocketBase* UWebSocketBlueprintLibrary::ConnectWithHeader(const FString& url, const TArray<FWebSocketHeaderPair>& header)
+{
+	if (s_websocketCtx.Get() == nullptr)
+	{
+		s_websocketCtx = MakeShareable(NewObject<UWebSocketContext>());
+		s_websocketCtx->CreateCtx();
+		s_websocketCtx->AddToRoot();
+	}
+
+	TMap<FString, FString> headerMap;
+	for (int i = 0; i < header.Num(); i++)
+	{
+		headerMap.Add(header[i].key, header[i].value);
+	}
+
+	return s_websocketCtx->Connect(url, headerMap);
 }
 
 bool UWebSocketBlueprintLibrary::GetJsonIntField(const FString& data, const FString& key, int& iValue)
