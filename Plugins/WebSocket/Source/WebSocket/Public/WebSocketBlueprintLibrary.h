@@ -65,7 +65,7 @@ public:
 };
 
 
-USTRUCT()
+USTRUCT(BlueprintType)
 struct FWebSocketHeaderPair
 {
 	GENERATED_USTRUCT_BODY()
