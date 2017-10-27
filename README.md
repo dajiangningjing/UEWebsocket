@@ -21,12 +21,12 @@ I did not use struct, because change a value of a struct in blueprint is not con
 
 ★ 4. IOS
 
-this plugin tested on 4.15, 4.16 and 4.17.
+this plugin tested on 4.16, 4.17 and 4.18.
 
 # Install
 This is a normal plugin, if you are a beginner and don't know how to install it, 
 please watch the video on my [another plugin](https://github.com/feixuwu/UnrealEngine4-Admob).
-If you have any problem, please email me:feixuwu@outlook.com
+If you have any problem, please email me:feixuwu@outlook.com.
 
 # Usage
 ★ Connect To Server
