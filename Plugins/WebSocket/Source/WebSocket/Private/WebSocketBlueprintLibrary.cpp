@@ -88,7 +88,8 @@ UWebSocketBase* UWebSocketBlueprintLibrary::ConnectWithHeader(const FString& url
 
 bool UWebSocketBlueprintLibrary::GetJsonIntField(const FString& data, const FString& key, int& iValue)
 {
-	TSharedRef<TJsonReader<TCHAR>> Reader = FJsonStringReader::Create(MoveTemp(data));
+	FString tmpData = data;
+	TSharedRef<TJsonReader<TCHAR>> Reader = FJsonStringReader::Create(MoveTemp(tmpData));
 
 	TSharedPtr<FJsonObject> JsonObject;
 	if (!FJsonSerializer::Deserialize(Reader, JsonObject))
@@ -126,7 +127,8 @@ UObject* UWebSocketBlueprintLibrary::JsonToObject(const FString& data, UClass * 
 {
 	UObject* pNewObject = NewObject<UObject>((UObject*)GetTransientPackage(), ClassObject);
 
-	TSharedRef<TJsonReader<TCHAR>> Reader = FJsonStringReader::Create(MoveTemp(data));
+	FString tmpData = data;
+	TSharedRef<TJsonReader<TCHAR>> Reader = FJsonStringReader::Create(MoveTemp(tmpData));
 
 	TSharedPtr<FJsonObject> JsonObject;
 	if (!FJsonSerializer::Deserialize(Reader, JsonObject))

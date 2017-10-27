@@ -37,8 +37,13 @@
 
 	<!-- optional additions to proguard -->
 	<proguardAdditions>
-		
-	</proguardAdditions>
+    <insert>
+      -dontwarn org.apache.http.**
+      -dontwarn android.net.http.**
+      -dontwarn com.android.volley.**
+      -dontwarn android.app.Activity
+    </insert>
+  </proguardAdditions>
 
 
 	<!-- optional additions to the GameActivity imports in GameActivity.java -->
