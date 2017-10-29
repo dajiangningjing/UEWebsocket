@@ -21,6 +21,8 @@ I did not use struct, because change a value of a struct in blueprint is not con
 
 ★ 4. IOS
 
+★ 5. Linux
+
 this plugin tested on 4.16, 4.17 and 4.18.
 
 # Install
