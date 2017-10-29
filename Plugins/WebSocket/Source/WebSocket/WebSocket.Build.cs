@@ -85,7 +85,6 @@ public class WebSocket : ModuleRules
         }
         else if(Target.Platform == UnrealTargetPlatform.Mac)
         {
-            PrivateDependencyModuleNames.Add("OpenSSL");
             PrivateIncludePaths.Add("WebSocket/ThirdParty/include/Mac");
             string strStaticPath = Path.GetFullPath(Path.Combine(ModulePath, "ThirdParty/lib/Mac/"));
             //PublicLibraryPaths.Add(strStaticPath);
@@ -103,6 +102,7 @@ public class WebSocket : ModuleRules
         }
         else if (Target.Platform == UnrealTargetPlatform.Linux)
         {
+            PrivateDependencyModuleNames.Add("OpenSSL");
             PrivateIncludePaths.Add("WebSocket/ThirdParty/include/Linux");
             string strStaticPath = Path.GetFullPath(Path.Combine(ModulePath, "ThirdParty/lib/Linux/"));
             PublicLibraryPaths.Add(strStaticPath);
